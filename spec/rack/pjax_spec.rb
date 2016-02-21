@@ -11,7 +11,7 @@ describe Rack::Pjax do
         lambda do |env|
           [
             200,
-            {'Content-Type' => 'text/plain', 'Content-Length' => Rack::Utils.bytesize(body).to_s},
+            {'Content-Type' => 'text/plain', 'Content-Length' => body.bytesize.to_s},
             [body]
           ]
         end
@@ -69,7 +69,7 @@ describe Rack::Pjax do
 
     it "should return the correct Content Length" do
       get "/", {}, {"HTTP_X_PJAX" => "true"}
-      headers['Content-Length'].should == Rack::Utils.bytesize(body).to_s
+      headers['Content-Length'].should == body.bytesize.to_s
     end
 
     it "should return the original body when there's no pjax-container" do
@@ -104,7 +104,7 @@ BODY
 
     it "should return the correct Content Length" do
       get "/"
-      headers['Content-Length'].should == Rack::Utils.bytesize(body).to_s
+      headers['Content-Length'].should == body.bytesize.to_s
     end
   end
 end
